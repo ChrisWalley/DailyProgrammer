@@ -16,13 +16,13 @@ public class DailyProgrammingLightOn
 {
     public static void main (String []args)
     {
-        int n = 0B0; int c;
+        int c, n = 0B0;
         Scanner inLine = new Scanner(JOptionPane.showInputDialog(""));
         while(inLine.hasNext())
         {
-            int s = inLine.nextInt(); int f = inLine.nextInt();
-            for(int l = s; l < f; l++)
-                n = n | (1 << l); 
+            int s = inLine.nextInt(), f = inLine.nextInt();
+            for(int L = s; L < f; L++)
+                n = n | (1 << L); 
         }
         for (c = 0; c < n; c++)
             n &= n - 1;
