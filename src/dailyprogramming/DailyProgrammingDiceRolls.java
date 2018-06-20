@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package dailyprogramming;
+import java.util.Random;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,7 +22,8 @@ public class DailyProgrammingDiceRolls
         int n, sum = 0;
         for(int loop = 0; loop < Integer.parseInt(input.substring(0, input.indexOf("d"))); loop++)
         {
-            sum += n = (int) (Math.round(Math.random()*(Integer.parseInt(input.substring(input.indexOf("d")+1))-1))+1);
+            //sum += n = (int) (Math.round(Math.random()*(Integer.parseInt(input.substring(input.indexOf("d")+1))-1))+1);
+            sum += n = (int) (new Random().nextInt((Integer.parseInt(input.substring(input.indexOf("d")+1))-1))+1);
             list = list+n+" ";
         }
         System.out.println(input+"\n"+sum+": "+list);
