@@ -21,14 +21,18 @@ public class DailyProgrammingRektangles
         int width = Integer.parseInt(input.substring(input.indexOf("h=")+2, input.indexOf(", height")));
         int height = Integer.parseInt(input.substring(input.indexOf("t=")+2));
         char [] word = input.substring(input.indexOf("\"")+1, input.indexOf("\",")).toCharArray();
+        int wordLength = word.length;
+        int squareWidth = width*wordLength-(width-1);
+        int squareHeight = height*wordLength-(height-1);
+        char [] [] result = new char [squareWidth] [squareHeight];
         int place = 0, dir = 1;
                 
         
-        for(int loop1 = 0; loop1 <(word.length*height)-(height-1); loop1++)
+        for(int yLoop = 0; yLoop <squareHeight; yLoop++)
         {
-           for(int loop2 = 0; loop2 <(word.length*width)-(width-1); loop2++)
+           for(int xLoop = 0; xLoop <squareWidth; xLoop++)
            {
-               System.out.print(word[getPlace(loop1, loop2, word.length-1,(width%2==0))]);
+               System.out.print(word[getPlace(xLoop,yLoop,wordLength-1)]+" ");
            }
             System.out.println("");
         }
@@ -51,16 +55,16 @@ public class DailyProgrammingRektangles
         }*/
 
     }
-    public static int getPlace(int x, int y, int wordWidth, boolean isEven)
+    public static int getPlace(int x, int y, int wordWidth)
     {
-        int place = (x+y)%(wordWidth);
-        if(!isEven)
-        if((((x+y)/(wordWidth))%2!=0) && ((x+y)>= wordWidth))
-            place = wordWidth;
-        else
-        if((((x+y)/(wordWidth))%2!=0))
-            place = wordWidth;
- 
+        int place = Math.abs((x+y)-(wordWidth));
+        
+        if(place>wordWidth)
+            place = place%wordWidth;
+       // if(x==y && (x+y)%wordWidth==0)
+           // place = wordWidth;10
+                    
+   
        // return (((x+y)/(wordWidth-1))%2==0)? place = wordWidth-1 : (x+y)%(wordWidth-1) ;
        return place;
     }
