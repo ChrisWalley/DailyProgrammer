@@ -27,7 +27,17 @@ import javax.swing.JOptionPane;
  */
 public class DailyProgrammingPasswordProtection extends javax.swing.JFrame {
 
+    private static final long SALT = ("audivistine aliquando Tragoediam Darth Plagueis Sapientis?"
+            + " sic scii. Jeditum non est hanc fabulam narrare. scriptum est apud Sithia. Darth "
+            + "Plagueis Dominus Ater Sithium erat, tam potens sapiensque ut Vi uti posset ad midichlorianes "
+            + "gubernandos, itaque vitam creare. tantam scientiam Partis Atrae habebat ut etiam e leto amatos "
+            + "sibi servare posset. Pars Atra Vis via est ad multas facultates ab aliquibus monstruosas esse "
+            + "putatas... tam potens est factus ut timeret ille tantummodo potentiam amittere, quod scilicet "
+            + "tandem fecit. infeliciter cum omnia sibi scita discipulum docuisset, iste discipulus dormientem "
+            + "necavit. ironia est. alios nec se servare poterat.").hashCode();
+
     private static HashMap<Long, Long> Data = new HashMap<>();
+
     /**
      * Creates new form DailyProgrammingPasswordProtection
      */
@@ -35,14 +45,12 @@ public class DailyProgrammingPasswordProtection extends javax.swing.JFrame {
         readAllHashes();
         initComponents();
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        this.addWindowListener(new WindowAdapter()
-        {
-             @Override
-             public void windowClosing(WindowEvent e)
-             {
-                 if(saveHashes());
-                     dispose();
-             }
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                if (saveHashes());
+                dispose();
+            }
         });
     }
 
@@ -56,7 +64,7 @@ public class DailyProgrammingPasswordProtection extends javax.swing.JFrame {
     private void initComponents() {
 
         btnLogIn = new javax.swing.JButton();
-        btnLogIn1 = new javax.swing.JButton();
+        btnChangeAccount = new javax.swing.JButton();
         txfUsername = new javax.swing.JTextField();
         lblUser = new javax.swing.JLabel();
         lblPass = new javax.swing.JLabel();
@@ -71,10 +79,10 @@ public class DailyProgrammingPasswordProtection extends javax.swing.JFrame {
             }
         });
 
-        btnLogIn1.setText("Create Account");
-        btnLogIn1.addActionListener(new java.awt.event.ActionListener() {
+        btnChangeAccount.setText("Create Account");
+        btnChangeAccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogIn1ActionPerformed(evt);
+                btnChangeAccountActionPerformed(evt);
             }
         });
 
@@ -103,7 +111,7 @@ public class DailyProgrammingPasswordProtection extends javax.swing.JFrame {
                             .addComponent(txfPassword, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btnLogIn1))
+                                .addComponent(btnChangeAccount))
                             .addComponent(txfUsername, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,7 +134,7 @@ public class DailyProgrammingPasswordProtection extends javax.swing.JFrame {
                 .addGap(11, 11, 11)
                 .addComponent(btnLogIn)
                 .addGap(18, 18, 18)
-                .addComponent(btnLogIn1)
+                .addComponent(btnChangeAccount)
                 .addContainerGap())
         );
 
@@ -138,44 +146,36 @@ public class DailyProgrammingPasswordProtection extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txfUsernameActionPerformed
 
-    private void btnLogIn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogIn1ActionPerformed
-    if(txfUsername.getText().length()>6&&txfPassword.getPassword().length>6)
-    {
-    long usr = txfUsername.getText().hashCode();
-    long pass = Arrays.hashCode(txfPassword.getPassword());
-    if(!Data.containsKey(usr))
-    {
-    long confPass = Arrays.hashCode(JOptionPane.showInputDialog("Please confirm your password").toCharArray());
-    if (confPass == pass)
-    {
-        Data.put(usr, pass);
-        JOptionPane.showMessageDialog(null, "Success");
-    }
-    else
-    {
-        JOptionPane.showMessageDialog(null, "Passwords do not match");
-    }
-    }
-    else
-    {
-        JOptionPane.showMessageDialog(null, "Username is already in use");
-    }
-    }
-    else
-        JOptionPane.showMessageDialog(null, "Please enter a username and password longer than 6 digits");
-    
-    }//GEN-LAST:event_btnLogIn1ActionPerformed
+    private void btnChangeAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeAccountActionPerformed
+        if (txfUsername.getText().length() > 6 && txfPassword.getPassword().length > 6) {
+            long usr = txfUsername.getText().hashCode() * SALT;
+            long pass = Arrays.hashCode(txfPassword.getPassword()) * SALT;
+            if (!Data.containsKey(usr)) {
+                long confPass = Arrays.hashCode(JOptionPane.showInputDialog("Please confirm your password").toCharArray()) * SALT;
+                if (confPass == pass) {
+                    Data.put(usr, pass);
+                    JOptionPane.showMessageDialog(null, "Success");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Passwords do not match");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Username is already in use");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Please enter a username and password longer than 6 digits");
+        }
+
+    }//GEN-LAST:event_btnChangeAccountActionPerformed
 
     private void btnLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogInActionPerformed
-       
-        long user = txfUsername.getText().hashCode();
-        long pass = Arrays.hashCode(txfPassword.getPassword());
-        if(((Data.get(user))) == (pass))
-       {
-           JOptionPane.showMessageDialog(null, "Welcome "+txfUsername.getText());
-       }
-        else
+     
+        long user = txfUsername.getText().hashCode() * SALT;
+        long pass = Arrays.hashCode(txfPassword.getPassword()) * SALT;
+        if (((Data.get(user))) == (pass)) {
+            JOptionPane.showMessageDialog(null, "Welcome " + txfUsername.getText());
+        } else {
             JOptionPane.showMessageDialog(null, "Error - Incorrect username or password");
+        }
     }//GEN-LAST:event_btnLogInActionPerformed
 
     /**
@@ -213,50 +213,41 @@ public class DailyProgrammingPasswordProtection extends javax.swing.JFrame {
         });
     }
 
-    public static boolean saveHashes()
-    {
-           try
-           {
-               FileOutputStream fos = new FileOutputStream("save.tmp");
-               ObjectOutputStream oos = new ObjectOutputStream(fos);
-                 
-               oos.writeObject(Data);
-               oos.close();
-               fos.close();
-               return true;
-               
-               
-           } catch (FileNotFoundException ex)
-           {
-               Logger.getLogger(DailyProgrammingPasswordProtection.class.getName()).log(Level.SEVERE, null, ex);
-           } catch (IOException ex)
-           {
-               Logger.getLogger(DailyProgrammingPasswordProtection.class.getName()).log(Level.SEVERE, null, ex);
-           }
-    return false;
+    public static boolean saveHashes() {
+        try {
+            FileOutputStream fos = new FileOutputStream("save.tmp");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(Data);
+            oos.close();
+            fos.close();
+            return true;
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(DailyProgrammingPasswordProtection.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DailyProgrammingPasswordProtection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
-    
-    public static void readAllHashes()
-    {
-        try
-           {
-               ObjectInputStream ois = new ObjectInputStream(new FileInputStream("save.tmp"));
-               
-               Data = (HashMap<Long,Long>) ois.readObject();
-               
-               ois.close();
-               
-           } catch (FileNotFoundException ex)
-           {
-               Logger.getLogger(DailyProgrammingPasswordProtection.class.getName()).log(Level.SEVERE, null, ex);
-           } catch (IOException | ClassNotFoundException ex)
-           {
-               Logger.getLogger(DailyProgrammingPasswordProtection.class.getName()).log(Level.SEVERE, null, ex);
-           } 
+
+    public static void readAllHashes() {
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("save.tmp"));
+
+            Data = (HashMap<Long, Long>) ois.readObject();
+
+            ois.close();
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(DailyProgrammingPasswordProtection.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(DailyProgrammingPasswordProtection.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnChangeAccount;
     private javax.swing.JButton btnLogIn;
-    private javax.swing.JButton btnLogIn1;
     private javax.swing.JLabel lblPass;
     private javax.swing.JLabel lblUser;
     private javax.swing.JPasswordField txfPassword;
