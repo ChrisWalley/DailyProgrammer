@@ -17,16 +17,18 @@ public class DailyProgrammingLightOn
     public static void main (String []args)
     {
         int c, n = 0B0;
-        Scanner inLine = new Scanner(JOptionPane.showInputDialog(""));
-        while(inLine.hasNext())
-        {
-            int s = inLine.nextInt(), f = inLine.nextInt();
-            for(int L = s; L < f; L++)
-                n = n | (1 << L); 
-        }
-        for (c = 0; c < n; c++)
-            n &= n - 1;
-        System.out.println(c);
-        inLine.close();
+        try (Scanner inLine = new Scanner(JOptionPane.showInputDialog("")))
+          {
+            while(inLine.hasNext())
+              {
+                int s = inLine.nextInt(), f = inLine.nextInt();
+                for(int L = s; L < f; L++)
+                    n = n | (1 << L);
+              }
+            for (c = 0; c < n; c++)
+                n &= n - 1;
+            System.out.println(c);
+            inLine.close();
+          }
     }
 }
