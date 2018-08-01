@@ -5,6 +5,7 @@
  */
 package dailyprogramming;
 
+import java.util.Locale;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,10 +16,9 @@ public class RandomTestClass
   {
     public static void main (String ... args) throws InterruptedException
       {
-        for(int loop = 0; loop <=1; loop++)
-          {
-              JOptionPane.showMessageDialog(null, "⎛");
-          }
+       Locale test = new Locale("Test", "test2", "test3");
+          System.out.println("test");
+        System.out.println(test.getCountry());
           
       }
   }
