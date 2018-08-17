@@ -5,18 +5,17 @@
  */
 package dailyprogramming;
 
-import java.util.Locale;
-/**
- *
- * @author Christopher
- */
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 public class RandomTestClass
   {
-    public static void main (String ... args) throws InterruptedException
+    public static void main (String ... args) throws InterruptedException, FileNotFoundException
       {
-       Locale test = new Locale("Test", "test2", "test3");
-          System.out.println("test");
-        System.out.println(test.getCountry());
+       for(int loop = 0; loop <1; loop++)
+         {
+             PrintWriter temp = new PrintWriter(new File(Math.random()+" LOOP "+loop+".txt"));
+         }
           
       }
   }
