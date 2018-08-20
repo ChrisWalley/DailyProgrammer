@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
  *
  * @author Christopher
  */
-public class DailyProgrammingNumbersOutput
+public class DailyProgrammingBlockNumbersOutput
 {
     public static void main(String...args)
     {
