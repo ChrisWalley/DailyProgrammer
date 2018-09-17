@@ -12,9 +12,9 @@ public class RandomTestClass
   {
     public static void main (String ... args) throws InterruptedException, FileNotFoundException
       {
-       for(int loop = 0; loop <1; loop++)
+       for(int loop = 0; loop <100; loop++)
          {
-             PrintWriter temp = new PrintWriter(new File(Math.random()+" LOOP "+loop+".txt"));
+             System.out.println((int) Math.round(Math.random()*5));
          }
           
       }
