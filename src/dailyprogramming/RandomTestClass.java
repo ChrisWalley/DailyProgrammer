@@ -5,17 +5,12 @@
  */
 package dailyprogramming;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 public class RandomTestClass
   {
     public static void main (String ... args) throws InterruptedException, FileNotFoundException
       {
-       for(int loop = 0; loop <100; loop++)
-         {
-             System.out.println((int) Math.round(Math.random()*5));
-         }
-          
+        for(int n =0;;n++)System.out.println(n);
+       //for(int n=0;;n++)System.out.print(Math.random()<.4 ? " " : n >= 185 ? ("\n"+(char)Math.round(Math.random()*n-(n=0))) : ((char)Math.round(Math.random()*(n))));
       }
   }
