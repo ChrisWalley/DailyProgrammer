@@ -10,7 +10,26 @@ public class RandomTestClass
   {
     public static void main (String ... args) throws InterruptedException, FileNotFoundException
       {
-        for(int n =0;;n++)System.out.println(n);
-       //for(int n=0;;n++)System.out.print(Math.random()<.4 ? " " : n >= 185 ? ("\n"+(char)Math.round(Math.random()*n-(n=0))) : ((char)Math.round(Math.random()*(n))));
+          System.out.println(emojiFilter("This is a test :joy::fire: cool?"));
+      }
+    
+    public static String emojiFilter(String s)
+      {
+        String Ejoy = "😂";
+        String EmidFing = "🖕";
+        String ErollEyes = "🙄";
+        String Efire = "🔥";
+        
+        String joy = ":joy:";
+        String midFing = ":midFing:";
+        String rollEyes = ":rollEyes:";
+        String fire = ":fire:";
+        
+        if(s.contains(joy))
+          {
+            s = s.substring(0, s.indexOf(joy)) + Ejoy + s.substring(s.indexOf(joy)+joy.length(), s.length());
+          }
+        
+        return s;
       }
   }
