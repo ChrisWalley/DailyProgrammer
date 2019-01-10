@@ -6,30 +6,52 @@
 package dailyprogramming;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+
 public class RandomTestClass
   {
-    public static void main (String ... args) throws InterruptedException, FileNotFoundException
+
+    public static void main(String... args) throws InterruptedException, FileNotFoundException
       {
-          System.out.println(emojiFilter("This is a test :joy::fire: cool?"));
+        ArrayList<temp> tempList = new ArrayList<>();
+        temp t = new temp(2);
+        temp2 t2 = new temp2(2);
+        tempList.add(t);
+        tempList.add(t2);
+          System.out.println();
+          
+          temp t3 = tempList.get(0);
+          temp t4 = tempList.get(1);
+          
+          if(t4.getClass() == temp2.class)
+            {
+                System.out.println("YEs");
+            }
       }
-    
-    public static String emojiFilter(String s)
+
+  }
+
+class temp
+  {
+
+    private int index;
+
+    public temp(int i)
       {
-        String Ejoy = "😂";
-        String EmidFing = "🖕";
-        String ErollEyes = "🙄";
-        String Efire = "🔥";
-        
-        String joy = ":joy:";
-        String midFing = ":midFing:";
-        String rollEyes = ":rollEyes:";
-        String fire = ":fire:";
-        
-        if(s.contains(joy))
-          {
-            s = s.substring(0, s.indexOf(joy)) + Ejoy + s.substring(s.indexOf(joy)+joy.length(), s.length());
-          }
-        
-        return s;
+        index = i;
+      }
+
+    public int getIndex()
+      {
+        return index;
+      }
+  }
+
+class temp2 extends temp
+  {
+
+    public temp2(int i)
+      {
+        super(i);
       }
   }
