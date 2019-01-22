@@ -13,7 +13,7 @@ public class DailyProgrammingDerangements
 
     public static void main(String[] args)
       {
-        System.out.println(findDerangement(1));
+        System.out.println(findDerangement(23));
       }
 
     public static long findDerangement(long n)
