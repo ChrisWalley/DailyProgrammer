@@ -6,27 +6,14 @@
 package dailyprogramming;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
+import dailyprogramming.DailyProgrammingHavelHakimi;
 
 public class RandomTestClass
   {
 
     public static void main(String... args) throws InterruptedException, FileNotFoundException
       {
-        ArrayList<temp> tempList = new ArrayList<>();
-        temp t = new temp(2);
-        temp2 t2 = new temp2(2);
-        tempList.add(t);
-        tempList.add(t2);
-          System.out.println();
-          
-          temp t3 = tempList.get(0);
-          temp t4 = tempList.get(1);
-          
-          if(t4.getClass() == temp2.class)
-            {
-                System.out.println("YEs");
-            }
+        
       }
 
   }
